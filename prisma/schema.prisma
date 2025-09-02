@@ -17,4 +17,30 @@ model User {
   privateKey    String?
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+
+  message message[] @relation("SignedMessages")
+  Log Log[]
+}
+
+model message {
+  id          String    @id @default(cuid())
+  signatoryId String
+  content     String
+  assinature  String
+  timestamp   DateTime  @default(now())
+
+  signatory      User      @relation("SignedMessages", fields: [signatoryId], references: [id])
+
+  @@index([signatoryId])
+}
+
+model Log {
+  id          String   @id @default(cuid())
+  userId      String?
+  action      String
+  details     String?
+  timestamp   DateTime @default(now())
+
+  user        User?    @relation(fields: [userId], references: [id])
+  @@index([userId])
 }
