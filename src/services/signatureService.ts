@@ -29,3 +29,55 @@ export async function verifyUserTextSignature(userId: string, text: string, sign
   await registerLog(userId, 'VERIFY', `Assinatura verificada: ${valid}`);
   return valid;
 }
+
+export type VerifySignatureParams = {
+  id?: string;
+  text?: string;
+  signature?: string;
+};
+
+/**
+ * Verificação pública: por id OU por texto + assinatura
+ */
+export async function verifySignaturePublic({ id, text, signature }: VerifySignatureParams): Promise<{
+  status: 'VÁLIDA' | 'INVÁLIDA';
+  signatario?: string;
+  algoritmo: string;
+  timestamp?: Date;
+  error?: string;
+}> {
+  if (id) {
+    // Busca por id da mensagem
+    const message = await prisma.message.findUnique({
+      where: { id },
+      include: { signatory: true },
+    });
+    if (!message) return { status: 'INVÁLIDA', algoritmo: 'SHA-256', error: 'Mensagem não encontrada' };
+    const valid = await verifyUserTextSignature(message.signatoryId, message.content, message.assinature);
+    return {
+      status: valid ? 'VÁLIDA' : 'INVÁLIDA',
+      signatario: message.signatory.email,
+      algoritmo: 'SHA-256',
+      timestamp: message.timestamp,
+    };
+  } else if (text && signature) {
+    // Busca por texto + assinatura
+    // Precisa buscar o usuário que assinou (não é possível saber sem contexto extra)
+    // Aqui retorna apenas se a assinatura é válida para algum usuário
+    // (Exemplo: busca todas as chaves públicas e tenta verificar)
+    const users = await prisma.user.findMany();
+    for (const user of users) {
+      if (!user.publicKey) continue;
+      const valid = await verifyUserTextSignature(user.id, text, signature);
+      if (valid) {
+        return {
+          status: 'VÁLIDA',
+          signatario: user.email,
+          algoritmo: 'SHA-256',
+        };
+      }
+    }
+    return { status: 'INVÁLIDA', algoritmo: 'SHA-256', error: 'Assinatura não corresponde a nenhum usuário' };
+  }
+  return { status: 'INVÁLIDA', algoritmo: 'SHA-256', error: 'Parâmetros insuficientes' };
+}

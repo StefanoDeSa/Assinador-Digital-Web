@@ -4,9 +4,6 @@ import { registerLog } from './logService';
 
 const prisma = new PrismaClient();
 
-/**
- * Cria e assina uma mensagem do usuário.
- */
 export async function createAndSignMessage(userId: string, content: string) {
   const signature = await signUserText(userId, content);
   const message = await prisma.message.create({
@@ -20,9 +17,6 @@ export async function createAndSignMessage(userId: string, content: string) {
   return message;
 }
 
-/**
- * Verifica a assinatura de uma mensagem existente.
- */
 export async function verifyMessageSignature(messageId: string): Promise<{ valid: boolean; signatory: string; timestamp: Date }> {
   const message = await prisma.message.findUnique({
     where: { id: messageId },
