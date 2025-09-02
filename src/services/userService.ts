@@ -1,7 +1,7 @@
 "use server";
 
 import { PrismaClient } from "@/generated/prisma";
-import { setAuthCookie } from "@/utils/cookies";
+import { getAuthCookie, setAuthCookie } from "@/utils/cookies";
 import { generateKeyPairSync } from "node:crypto";
 
 const prisma = new PrismaClient();
@@ -87,3 +87,14 @@ export async function loginUser({ email, password }: LoginInput) {
     };
 }
 
+export async function getCurrentUser() {
+  const userId = await getAuthCookie();
+  if (!userId) return null;
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { id: true, email: true, name: true },
+  });
+
+  return user;
+}
