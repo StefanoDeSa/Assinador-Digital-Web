@@ -1,7 +1,7 @@
 import crypto from 'crypto';
-import { toBase64Url, fromBase64UrlToBuffer } from '../utils/helpers.js';
+import { toBase64Url, fromBase64UrlToBuffer} from '@/utils/helpers';
 import { PrismaClient } from '../generated/prisma';
-import { registerLog } from './logService.js';
+import { registerLog } from './logService';
 
 const prisma = new PrismaClient();
 
