@@ -1,6 +1,6 @@
 import { PrismaClient } from '../generated/prisma';
-import { signUserText, verifyUserTextSignature } from './signatureService.js';
-import { registerLog } from './logService.js';
+import { signUserText, verifyUserTextSignature } from './signatureService';
+import { registerLog } from './logService';
 
 const prisma = new PrismaClient();
 
