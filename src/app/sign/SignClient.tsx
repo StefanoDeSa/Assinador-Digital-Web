@@ -36,6 +36,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { fetchWrapper } from '@/lib/fetchWrapper';
 
 const SignSchema = z.object({
     text: z.string().min(1, "Digite algum conteúdo para assinar."),
@@ -74,18 +75,24 @@ export default function SignClient() {
     async function onSubmit(values: SignValues) {
         setIsSigning(true);
         try {
+            // Chama o backend para assinar o texto (envia apenas o conteúdo)
+            const response = await fetchWrapper('/api/sign', {
+                method: 'POST',
+                body: { content: values.text },
+            });
+            if (!response.ok) throw new Error(response.message || 'Erro ao assinar');
             const hashHex = await sha256Hex(values.text);
-            const id = `sig_${Date.now().toString(36)}`;
+            const id = response.id;
+            const signature = response.assinature;
             const algo = "RSA/SHA-256";
-            const createdAt = new Date().toLocaleString();
+            const createdAt = new Date(response.timestamp).toLocaleString();
 
-            const res: SignResult = { id, hashHex, signature: undefined, algo, createdAt };
+            const res: SignResult = { id, hashHex, signature, algo, createdAt };
             setResult(res);
             setRecent((prev) => [res, ...prev].slice(0, 5));
 
-            toast.success("Hash calculado!", {
-                description:
-                    "A assinatura real virá do backend quando integrarmos o serviço.",
+            toast.success("Assinatura gerada!", {
+                description: "Assinatura digital criada pelo backend.",
             });
         } catch (e: any) {
             toast.error("Falha ao assinar", {
