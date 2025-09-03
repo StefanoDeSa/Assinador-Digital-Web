@@ -15,11 +15,11 @@ Arquitetura modular com serviços (`userService`, `messageService`, `signatureSe
 
 Clone o repositório e instale as dependências:
 
-
+```bash
 git clone [https://github.com/seu-usuario/seu-repo.git](https://github.com/StefanoDeSa/Assinador-Digital-Web.git)
 cd Assinador-Digital-Web.git
 npm install
-
+```
 
 
 ## Banco de Dados
@@ -27,9 +27,9 @@ npm install
 O projeto usa **PostgreSQL** via Docker Compose.
 Para subir o banco localmente:
 
-
+```bash
 docker compose up -d
-
+```
 
 A URL do banco deve estar definida em .env:
 
@@ -40,15 +40,17 @@ DATABASE_URL="postgresql://usuario:senha@localhost:5432/appdb?schema=public"^
 
 Gere os clientes e rode as migrações:^
 
-
+```bash
 npx prisma generate
 npx prisma migrate dev
-
+```
 ## Scripts
 
-Rodar em desenvolvimento:^
+Rodar em desenvolvimento:
 
-npm run dev^
+```bash
+npm run dev
+```
 
 ## Estrutura
 
