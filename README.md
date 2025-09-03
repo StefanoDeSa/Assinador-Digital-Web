@@ -33,8 +33,10 @@ docker compose up -d
 
 A URL do banco deve estar definida em .env:
 
+```bash
 .env
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/appdb?schema=public"^
+```
 
 ## Prisma
 
