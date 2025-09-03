@@ -28,7 +28,7 @@ O projeto usa **PostgreSQL** via Docker Compose.  ^
 Para subir o banco localmente:^
 
 
-docker compose up -d^
+docker compose up -d
 
 
 A URL do banco deve estar definida em .env:
@@ -52,10 +52,10 @@ npm run dev^
 
 **Estrutura**
 
-services/logService.ts → grava auditorias no banco
-services/messageService.ts → CRUD de mensagens e assinatura
-services/signatureService.ts → assinar/verificar texto com chaves RSA
-services/userService.ts → autenticação e gerenciamento de usuários
+`services/logService.ts` → grava auditorias no banco
+`services/messageService.ts` → CRUD de mensagens e assinatura
+`services/signatureService.ts` → assinar/verificar texto com chaves RSA
+`services/userService.ts` → autenticação e gerenciamento de usuários
 
 
 **Fluxo de Assinatura**
