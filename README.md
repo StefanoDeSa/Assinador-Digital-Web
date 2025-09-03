@@ -22,7 +22,7 @@ npm install
 
 
 
-Banco de Dados
+## Banco de Dados
 
 O projeto usa **PostgreSQL** via Docker Compose.
 Para subir o banco localmente:
@@ -36,7 +36,7 @@ A URL do banco deve estar definida em .env:
 .env
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/appdb?schema=public"^
 
-**Prisma**
+## Prisma
 
 Gere os clientes e rode as migrações:^
 
@@ -44,13 +44,13 @@ Gere os clientes e rode as migrações:^
 npx prisma generate
 npx prisma migrate dev
 
-**Scripts**
+## Scripts
 
 Rodar em desenvolvimento:^
 
 npm run dev^
 
-**Estrutura**
+## Estrutura
 
 `services/logService.ts` → grava auditorias no banco
 `services/messageService.ts` → CRUD de mensagens e assinatura
@@ -58,7 +58,7 @@ npm run dev^
 `services/userService.ts` → autenticação e gerenciamento de usuários
 
 
-**Fluxo de Assinatura**
+## Fluxo de Assinatura
 
 1. O usuário cria mensagem.
 2. O serviço gera assinatura digital com a chave privada do usuário.
