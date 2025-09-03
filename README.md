@@ -1,31 +1,31 @@
 # Assinador Digital Web
 
-Serviço de mensagens com registro de logs e assinaturas digitais.  ^
-Arquitetura modular com serviços (`userService`, `messageService`, `signatureService`, `logService`).^
+Serviço de mensagens com registro de logs e assinaturas digitais.
+Arquitetura modular com serviços (`userService`, `messageService`, `signatureService`, `logService`).
 
 
 ## Requisitos
 
-- Node.js >= 18^
-- Docker e Docker Compose (para banco de dados)^
-- Prisma CLI^
+- Node.js >= 18
+- Docker e Docker Compose (para banco de dados)
+- Prisma CLI
 
 
 ## Instalação
 
-Clone o repositório e instale as dependências:^
+Clone o repositório e instale as dependências:
 
 
-git clone https://github.com/seu-usuario/seu-repo.git^
-cd seu-repo^
-npm install^
+git clone https://github.com/seu-usuario/seu-repo.git
+cd seu-repo
+npm install
 
 
 
 Banco de Dados
 
-O projeto usa **PostgreSQL** via Docker Compose.  ^
-Para subir o banco localmente:^
+O projeto usa **PostgreSQL** via Docker Compose.
+Para subir o banco localmente:
 
 
 docker compose up -d
