@@ -35,12 +35,12 @@ A URL do banco deve estar definida em .env:
 
 ```bash
 .env
-DATABASE_URL="postgresql://usuario:senha@localhost:5432/appdb?schema=public"^
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/appdb?schema=public"
 ```
 
 ## Prisma
 
-Gere os clientes e rode as migrações:^
+Gere os clientes e rode as migrações:
 
 ```bash
 npx prisma generate
