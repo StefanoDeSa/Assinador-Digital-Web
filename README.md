@@ -16,8 +16,8 @@ Arquitetura modular com serviços (`userService`, `messageService`, `signatureSe
 Clone o repositório e instale as dependências:
 
 
-git clone https://github.com/seu-usuario/seu-repo.git
-cd seu-repo
+git clone [https://github.com/seu-usuario/seu-repo.git](https://github.com/StefanoDeSa/Assinador-Digital-Web.git)
+cd Assinador-Digital-Web.git
 npm install
 
 
